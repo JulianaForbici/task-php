@@ -44,7 +44,7 @@
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="seuemail@exemplo.com"
+                                placeholder="email@exemplo.com"
                                 value="{{ old('email') }}"
                                 class="input input-bordered w-full @error('email') input-error @enderror"
                                 required
