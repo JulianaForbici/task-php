@@ -15,7 +15,7 @@ Um **Task Manager** simples e elegante para **criar, acompanhar e concluir taref
 ### Cadastro
 ![TaskManager - Cadastro](https://github.com/user-attachments/assets/edca572b-d15b-4ccd-afe6-3ca13ab3c01e)
 
-### Editar tarefa
+### Editar/Excluir tarefa
 ![TaskManager - Editar tarefa](https://github.com/user-attachments/assets/25d5ff72-d713-4261-bf30-062a1993e91e)
 
 ---
