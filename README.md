@@ -1,58 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ☕ TaskManager (Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Um **Task Manager** simples e elegante para **criar, acompanhar e concluir tarefas**, com autenticação (cadastro/login) e tarefas vinculadas por usuário.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🖼️ Telas (Preview)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Home (Dashboard)
+![TaskManager - Home](https://github.com/user-attachments/assets/2d673bcb-56dd-493f-ad61-3c17e904b435)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Login
+![TaskManager - Login](https://github.com/user-attachments/assets/1ed4f68e-35a8-4177-89af-14f04178dbd3)
 
-## Learning Laravel
+### Cadastro
+![TaskManager - Cadastro](https://github.com/user-attachments/assets/edca572b-d15b-4ccd-afe6-3ca13ab3c01e)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Editar tarefa
+![TaskManager - Editar tarefa](https://github.com/user-attachments/assets/25d5ff72-d713-4261-bf30-062a1993e91e)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## ✅ Funcionalidades
 
-## Agentic Development
+### Autenticação
+- Cadastro de usuário
+- Login / Logout
+- Rotas protegidas por `auth`
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Tarefas
+- Criar tarefa com:
+  - **Título** (obrigatório)
+  - **Descrição** (opcional)
+  - **Status**: `todo`, `doing`, `done`
+  - **Prazo (due_date)** opcional (não permite datas no passado)
+- Listagem das tarefas do usuário (ordenadas por mais recentes)
+- Editar tarefa
+- Excluir tarefa
+- Resumo na Home com contagem por status (**To do / Doing / Done**)
 
+### Segurança (autorização)
+- Policy para garantir que **apenas o dono da tarefa** possa editar/excluir
+
+---
+
+## 🧱 Stack / Tecnologias
+
+- **PHP + Laravel**
+- **Blade** (views)
+- **Eloquent ORM**
+- **SQLite/MySQL** (via configuração do `.env`)
+- **Vite**
+- **Tailwind CSS**
+- **daisyUI (tema lofi)**
+
+---
+
+## 🚀 Como rodar o projeto
+
+### 1) Clonar e instalar dependências
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/JulianaForbici/task-php.git
+cd task-php
 
-php artisan boost:install
+composer install
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2) Configurar ambiente
+Crie seu `.env` a partir do exemplo:
 
-## Contributing
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Configure o banco no `.env`.
 
-## Code of Conduct
+Exemplo com SQLite:
+```env
+DB_CONNECTION=sqlite
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+E crie o arquivo do banco (se necessário):
+```bash
+touch database/database.sqlite
+```
 
-## Security Vulnerabilities
+### 3) Rodar migrations
+```bash
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4) Rodar o projeto
+Em um terminal:
+```bash
+php artisan serve
+```
 
-## License
+Em outro terminal:
+```bash
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Acesse:
+- `http://127.0.0.1:8000`
+
+---
+
+## 🔐 Rotas principais
+
+### Públicas
+- `GET /register` → tela de cadastro  
+- `POST /register` → cria conta  
+- `GET /login` → tela de login  
+- `POST /login` → autentica usuário  
+
+### Protegidas (auth)
+- `GET /` → Home com listagem + formulário de nova tarefa  
+- `POST /tasks` → criar tarefa  
+- `GET /tasks/{task}/edit` → editar tarefa  
+- `PUT /tasks/{task}` → atualizar tarefa  
+- `DELETE /tasks/{task}` → excluir tarefa  
+- `POST /logout` → sair  
+
+---
+
+## 🗂️ Estrutura (onde está cada coisa)
+
+- Controller: `app/Http/Controllers/TaskController.php`
+- Model: `app/Models/Task.php`
+- Migration: `database/migrations/2026_03_18_012459_create_tasks_table.php`
+- Home: `resources/views/home.blade.php`
+- Edit task: `resources/views/tasks/edit.blade.php`
+- Auth views: `resources/views/auth/login.blade.php` e `resources/views/auth/register.blade.php`
+- Layout (navbar/toasts): `resources/views/components/layout.blade.php`
+
+---
+
+## 📌 Regras de validação (tarefas)
+
+- `title`: obrigatório, string, 3–120 chars  
+- `description`: opcional  
+- `status`: obrigatório (`todo|doing|done`)  
+- `due_date`: opcional, data **>= hoje**  
+
+---
+
+## 📄 Licença
+
+Projeto para fins de estudo/portfolio.
