@@ -17,11 +17,11 @@ class Login extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/')->with('success', 'Welcome back!');
+            return redirect()->intended('/')->with('success', 'Bem-vindo de volta!');
         }
 
         return back()
-            ->withErrors(['email' => 'the provided credentials dont match with our records!'])
+            ->withErrors(['email' => 'As credenciais fornecidas estão incorretas.'])
             ->onlyInput('email');
     }
 }

@@ -12,24 +12,22 @@ class Register extends Controller
 {
     public function __invoke(Request $request)
     {
-        // Validate the input
+        // validate the request
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create the user
+        // create the user
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
-        // Log them in
         Auth::login($user);
 
-        // Redirect to home
-        return redirect('/')->with('success', 'Welcome to TaskManager!');
+        return redirect('/')->with('success', 'Bem-vindo ao TaskManager!');
     }
 }
