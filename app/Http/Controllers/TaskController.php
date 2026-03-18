@@ -16,7 +16,7 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks.create');
+        //
     }
 
     public function store(Request $request)
@@ -42,8 +42,6 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $this->authorize('view', $task);
-
-        return view('tasks.show', compact('task'));
     }
 
     public function edit(Task $task)
