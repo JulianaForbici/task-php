@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', [TaskController::class, 'index'])->name('home');
 
-    Route::resource('tasks', TaskController::class)->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
+    Route::resource('tasks', TaskController::class)->only(['store', 'edit', 'update', 'destroy']);
 });
 
 Route::view('/register', 'auth.register')

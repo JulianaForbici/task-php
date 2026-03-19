@@ -14,11 +14,6 @@ class TaskController extends Controller
         return view('home', ['tasks' => $tasks]);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate(
@@ -37,11 +32,6 @@ class TaskController extends Controller
         auth()->user()->tasks()->create($validated);
 
         return redirect('/')->with('success', 'Tarefa criada com sucesso!');
-    }
-
-    public function show(Task $task)
-    {
-        $this->authorize('view', $task);
     }
 
     public function edit(Task $task)
